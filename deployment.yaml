@@ -1,40 +1,39 @@
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment-type
-  namespace: default
+  name: deployment-app
+  labels:
+    app: ingress-app
 
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: index-app
+      app: ingress-app
 
   template:
     metadata:
       labels:
-        app: index-app
+        app: ingress-app
 
     spec:
       containers:
-        - name: container-app
-          image: punnam2909/app1:latest
-          ports:
-            - containerPort: 80
+      - name: deployment-ingress-container
+        image: punnam2909/image:latest
+        ports:
+        - containerPort: 80
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: deployment-type
-  namespace: default
+  name: deployment-service
 
 spec:
   type: ClusterIP
   selector:
-    app: index-app
+    app: ingress-app
 
   ports:
-    - port: 80
-      targetPort: 80
+  - port: 80
+    targetPort: 80
