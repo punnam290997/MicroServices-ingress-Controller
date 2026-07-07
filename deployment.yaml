@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment-app
+  name: techsolutions-deployment
   namespace: default
   labels:
-    app: ingress-app
+    app: techsolutions
 
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: ingress-app
+      app: techsolutions
 
   template:
     metadata:
       labels:
-        app: ingress-app
+        app: techsolutions
 
     spec:
       containers:
-      - name: deployment-ingress-container
-        image: punnam2909/image:latest
+      - name: techsolutions-container
+        image: punnam2909/techsolutions:latest
         ports:
         - containerPort: 80
 
@@ -28,13 +28,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: deployment-service
+  name: techsolutions-service
   namespace: default
 
 spec:
   type: ClusterIP
   selector:
-    app: ingress-app
+    app: techsolutions
 
   ports:
   - protocol: TCP
